@@ -1,6 +1,7 @@
 import pygame
 import random
 from leafblower import player
+from Leaf import leaf
 
 pygame.init()
 screen = pygame.display.set_mode((800,800))
@@ -15,6 +16,7 @@ S = 3
 keys = [False, False, False, False]
 
 p1 = player()
+l1 = leaf()
 
 state = 1
 
@@ -32,6 +34,7 @@ text_font = pygame.font.SysFont("Sans", 60, bold = True)
 def draw_text(text, font, text_col, tx, ty):
     img = font.render(text, True, text_col)
     screen.blit(img, (tx, ty))
+
 
 while 1:
     clock.tick(60)
@@ -77,35 +80,39 @@ while 1:
         if event.type == pygame.MOUSEBUTTONUP:
             mouseDown = False
 
-        #physics section----------------------------------------------------------------------------------------
+    #physics section----------------------------------------------------------------------------------------
 
-
+    p1.move(keys)
         
-        #states--------------------------------------------------------------------------------------------------
-        if state == 1 and mousePos[0]>300 and mousePos[0]<500 and mousePos[1]>300 and mousePos[1]<450:
-            button1 = True
+    #states--------------------------------------------------------------------------------------------------
+    if state == 1 and mousePos[0]>300 and mousePos[0]<500 and mousePos[1]>300 and mousePos[1]<450:
+        button1 = True
+    else:
+        button1 = False
+
+    if state == 1 and button1 == True and mouseDown == True:
+        state = 2
+    #render section------------------------------------------------------------------------------------------
+    if state == 1:
+        screen.fill((230,100,100))# Clear the screen pink
+
+        if button1 == False:
+            pygame.draw.rect(screen, (100, 230, 100), (300, 300, 200, 150))
         else:
-            button1 = False
-
-        if state == 1 and button1 == True and mouseDown == True:
-            state = 2
-        #render section------------------------------------------------------------------------------------------
-        if state == 1:
-            screen.fill((230,100,100))# Clear the screen pink
-
-            if button1 == False:
-                pygame.draw.rect(screen, (100, 230, 100), (300, 300, 200, 150))
-            else:
-                pygame.draw.rect(screen, (200, 250, 200), (300, 300, 200, 150))
+            pygame.draw.rect(screen, (200, 250, 200), (300, 300, 200, 150))
 
 
-            draw_text("Leaf Blower Revolution", text_font, (0,0,0), 100, 50)
-            draw_text("Start", text_font, (0,0,0), 330, 350)
+        draw_text("Leaf Blower Revolution", text_font, (0,0,0), 100, 50)
+        draw_text("Start", text_font, (0,0,0), 330, 350)
         
-        elif state == 2:
-            screen.fill((128,255,128))
+    elif state == 2:
+        screen.fill((128,255,128))
 
-            p1.draw(screen)
+        for i in range(50):
+            l1.draw(screen)
+
+
+        p1.draw(screen)
 
         
-        pygame.display.flip()#this actually puts the pixel on the screen
+    pygame.display.flip()#this actually puts the pixel on the screen

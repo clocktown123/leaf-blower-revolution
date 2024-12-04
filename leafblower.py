@@ -4,7 +4,7 @@ A = 0
 D = 1
 W = 2
 S = 3
-
+direct = [False, False, False, False]
 
 class player:
     def __init__ (self):
@@ -14,22 +14,22 @@ class player:
         self.direction = D
     
     def draw(self, screen):
-        pygame.draw.rect(screen, (255,0,255), (self.pos.x, self.pos.y, 50, 50))
+        pygame.draw.circle(screen, (255,0,255), (self.pos.x, self.pos.y), 50)
     
-    def move(self, keys):
-        if keys[A] == True:
+    def move(self, direct):
+        if direct[A] == True:
             self.vx = -3
             self.direction = A
-        elif keys[D] == True:
+        elif direct[D] == True:
             self.vx = 3
             self.direction = D
         else:
             self.vx = 0
 
-        if keys[W] == True:
+        if direct[W] == True:
             self.vy = -3
             self.direction = W
-        elif keys[S] == True:
+        elif direct[S] == True:
             self.vy = 3
             self.direction = S
         else:

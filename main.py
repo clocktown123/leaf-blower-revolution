@@ -13,7 +13,7 @@ A = 0
 D = 1
 W = 2
 S = 3
-keys = [False, False, False, False]
+direct = [False, False, False, False]
 
 p1 = player()
 l1 = leaf()
@@ -43,46 +43,37 @@ while 1:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             gameover = True
-
-        if event.type == pygame.KEYDOWN:
-
-            if event.key == pygame.K_a:
-                keys[A] = True
-                #RowNum = 0
-            if event.key == pygame.K_d:
-                keys[D] = True
-                #RowNum = 3
-            if event.key == pygame.K_w:
-                keys[W] = True
-                #RowNum = 1
-            if event.key == pygame.K_s:
-                keys[S] = True
-
-        elif event.type == pygame.KEYUP:
-
-            if event.key == pygame.K_a:
-                keys[A] = False
-                #RowNum = 0
-            if event.key == pygame.K_d:
-                keys[D] = False
-                #RowNum = 3
-            if event.key == pygame.K_w:
-                keys[W] = False
-                #RowNum = 1
-            if event.key == pygame.K_s:
-                keys[S] = False
         
-        if event.type == pygame.MOUSEMOTION:
-            mousePos = event.pos
-        #keeps track of mouse button
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            mouseDown = True
-        if event.type == pygame.MOUSEBUTTONUP:
-            mouseDown = False
+    if event.type == pygame.MOUSEMOTION:
+        mousePos = event.pos
+
+        if mousePos[0] > p1.pos.x:
+            p1.vx = 5
+        elif mousePos[0] < p1.pos.x:
+            p1.vx = -5
+        else:
+            p1.vx = 0
+                
+        if mousePos[1] > p1.pos.y:
+            p1.vy = 5
+        elif mousePos[0] < p1.pos.y:
+            p1.vy = -5
+        else:
+            p1.vy = 0
+
+    #keeps track of mouse button
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        mouseDown = True
+    if event.type == pygame.MOUSEBUTTONUP:
+        mouseDown = False
+    
+    p1.pos.x += p1.vx
+    p1.pos.y += p1.vy
+
 
     #physics section----------------------------------------------------------------------------------------
 
-    p1.move(keys)
+    #p1.move(direct)
         
     #states--------------------------------------------------------------------------------------------------
     if state == 1 and mousePos[0]>300 and mousePos[0]<500 and mousePos[1]>300 and mousePos[1]<450:

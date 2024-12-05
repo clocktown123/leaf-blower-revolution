@@ -8,26 +8,37 @@ screen = pygame.display.set_mode((800,800))
 pygame.display.set_caption("leaf blower")
 clock = pygame.time.Clock() # controls frame rates
 
-
+#direction
 A = 0
 D = 1
 W = 2
 S = 3
 direct = [False, False, False, False]
 
+#leaf positions
+leafX = random.randrange(0, 800)
+leafY = random.randrange(0, 800)
+
+#classes
 p1 = player()
-l1 = leaf()
+l1 = leaf(leafX, leafY)
+
 
 state = 1
 
+#state bottons
 button1 = False
 button2 = False
 
+#mouse x pos and y pos
 mxpos = 0
 mypos = 0
 
 mousePos = (mxpos, mypos)
 mouseDown = False
+
+#other variables
+amount = 30
 
 text_font = pygame.font.SysFont("Sans", 60, bold = True)
 
@@ -35,6 +46,9 @@ def draw_text(text, font, text_col, tx, ty):
     img = font.render(text, True, text_col)
     screen.blit(img, (tx, ty))
 
+leafBag = []
+for i in range(amount):
+    leafBag.append(leaf(leafX, leafY))
 
 while 1:
     clock.tick(60)
@@ -48,18 +62,22 @@ while 1:
         mousePos = event.pos
 
         if mousePos[0] > p1.pos.x:
-            p1.vx = 5
+            #p1.vx = 5
+            direct[D] = True
         elif mousePos[0] < p1.pos.x:
-            p1.vx = -5
-        else:
-            p1.vx = 0
+            #p1.vx = -5
+            direct[A] = True
+        #else:
+            #p1.vx = 0
                 
         if mousePos[1] > p1.pos.y:
-            p1.vy = 5
+            #p1.vy = 5
+            direct[S] == True
         elif mousePos[0] < p1.pos.y:
-            p1.vy = -5
-        else:
-            p1.vy = 0
+            #p1.vy = -5
+            direct[W] == True
+        #else:
+           # p1.vy = 0
 
     #keeps track of mouse button
     if event.type == pygame.MOUSEBUTTONDOWN:
@@ -73,8 +91,11 @@ while 1:
 
     #physics section----------------------------------------------------------------------------------------
 
-    #p1.move(direct)
-        
+    for i in range(len(leafBag)):
+            leafBag[i].collision(mousePos, p1.pos.x, p1.pos.y)
+
+    p1.move(direct)
+    
     #states--------------------------------------------------------------------------------------------------
     if state == 1 and mousePos[0]>300 and mousePos[0]<500 and mousePos[1]>300 and mousePos[1]<450:
         button1 = True
@@ -99,9 +120,10 @@ while 1:
     elif state == 2:
         screen.fill((128,255,128))
 
-        for i in range(50):
-            l1.draw(screen)
+        p1.pos.x,p1.pos.y = pygame.mouse.get_pos()
 
+        for i in range(len(leafBag)):
+            leafBag[i].draw(screen)
 
         p1.draw(screen)
 

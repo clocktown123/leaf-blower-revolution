@@ -1,5 +1,7 @@
 import pygame
 from pygame.math import Vector2
+import math
+
 A = 0
 D = 1
 W = 2
@@ -37,3 +39,9 @@ class player:
         
         self.pos.y += self.vy
         self.pos.x += self.vx
+    
+    #def collision(self, mousePos, lvx, lvy, radius):
+        #if math.sqrt((mousePos[0]  - lvx)**2 + (mousePos[1] - lvy)**2)<radius:
+            #print("collision")
+            #lvx *= -1
+            #lvy *= -1

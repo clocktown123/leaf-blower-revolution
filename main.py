@@ -23,6 +23,7 @@ leafY = random.randrange(0, 800)
 p1 = player()
 l1 = leaf(leafX, leafY)
 
+cash = 0
 
 state = 1
 
@@ -39,6 +40,8 @@ mouseDown = False
 
 #other variables
 amount = 30
+
+last_check_time = pygame.time.get_ticks()
 
 text_font = pygame.font.SysFont("Sans", 60, bold = True)
 
@@ -94,6 +97,16 @@ while 1:
     for i in range(len(leafBag)):
             leafBag[i].collision(mousePos, p1.pos.x, p1.pos.y)
 
+    current_time = pygame.time.get_ticks()
+    if current_time - last_check_time >= 15000:  # 15 seconds in milliseconds
+        # Do your thing here
+        print("all leaves respawn")
+        for i in range(len(leafBag)):
+            leafBag[i].dead = False
+
+        # Reset the timer
+        last_check_time = current_time
+
     p1.move(direct)
     
     #states--------------------------------------------------------------------------------------------------
@@ -123,7 +136,8 @@ while 1:
         p1.pos.x,p1.pos.y = pygame.mouse.get_pos()
 
         for i in range(len(leafBag)):
-            leafBag[i].draw(screen)
+            if leafBag[i].dead == False:
+                leafBag[i].draw(screen)
 
         p1.draw(screen)
 

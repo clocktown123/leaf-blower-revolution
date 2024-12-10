@@ -102,7 +102,8 @@ while 1:
         # Do your thing here
         print("all leaves respawn")
         for i in range(len(leafBag)):
-            leafBag[i].dead = False
+            if leafBag[i].dead == True:
+                leafBag[i].refresh()
 
         # Reset the timer
         last_check_time = current_time

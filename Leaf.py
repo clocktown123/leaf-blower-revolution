@@ -13,6 +13,7 @@ class leaf:
         self.vx = 0
         self.radius = 15
         self.dead = False
+        self.leaflvl = 1
 
     def draw(self, screen):
         pygame.draw.circle(screen, BLUE, (self.x, self.y), self.radius)
@@ -22,19 +23,23 @@ class leaf:
         self.x = random.randrange(0, 700)
         self.y = random.randrange(0, 700)
 
-    def collision(self, mousePos, px, py):
+    def collision(self, mousePos, px, py, cash):
 
         self.x += self.vx
         self.y += self.vy
 
         if self.x < 5:
             self.dead = True
+            cash+=5
         if self.x > 795:
             self.dead = True
+            cash+=5
         if self.y < 5:
             self.dead = True
+            cash+=5
         if self.y > 795:
             self.dead = True
+            cash+=5
 
         if (self.radius+70 > math.sqrt((px - self.x)**2 + (py - self.y)**2)):
 
@@ -59,4 +64,12 @@ class leaf:
             self.vx = 0
             self.vy = 0
 
-
+    def Dollars(self, cash):
+        if self.x < 5:
+            cash+=5
+        if self.x > 795:
+            cash+=5
+        if self.y < 5:
+            cash+=5
+        if self.y > 795:
+            cash+=5

@@ -95,7 +95,7 @@ while 1:
     #physics section----------------------------------------------------------------------------------------
 
     for i in range(len(leafBag)):
-            leafBag[i].collision(mousePos, p1.pos.x, p1.pos.y)
+            leafBag[i].collision(mousePos, p1.pos.x, p1.pos.y, cash)
 
     current_time = pygame.time.get_ticks()
     if current_time - last_check_time >= 15000:  # 15 seconds in milliseconds
@@ -109,6 +109,9 @@ while 1:
         last_check_time = current_time
 
     p1.move(direct)
+
+    for i in range(len(leafBag)):
+        leafBag[i].Dollars(cash)
     
     #states--------------------------------------------------------------------------------------------------
     if state == 1 and mousePos[0]>300 and mousePos[0]<500 and mousePos[1]>300 and mousePos[1]<450:
@@ -135,6 +138,9 @@ while 1:
         screen.fill((128,255,128))
 
         p1.pos.x,p1.pos.y = pygame.mouse.get_pos()
+
+        draw_text("$: ",  text_font, (0,0,0), 25, 730)
+        draw_text(str(cash),  text_font, (0,0,0), 85, 730)
 
         for i in range(len(leafBag)):
             if leafBag[i].dead == False:

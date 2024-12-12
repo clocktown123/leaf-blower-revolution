@@ -7,8 +7,8 @@ BLUE = (0, 0, 255)
 
 class leaf:
     def __init__(self, xpos, ypos):
-        self.x = random.randrange(0, 700)
-        self.y = random.randrange(0, 700)
+        self.x = random.randrange(10, 700)
+        self.y = random.randrange(10, 700)
         self.vy = 0
         self.vx = 0
         self.radius = 15
@@ -20,8 +20,8 @@ class leaf:
     
     def refresh(self):
         self.dead = False
-        self.x = random.randrange(0, 700)
-        self.y = random.randrange(0, 700)
+        self.x = random.randrange(10, 700)
+        self.y = random.randrange(10, 700)
 
     def collision(self, mousePos, px, py, cash):
 
@@ -30,16 +30,15 @@ class leaf:
 
         if self.x < 5:
             self.dead = True
-            cash+=5
+
         if self.x > 795:
             self.dead = True
-            cash+=5
+
         if self.y < 5:
             self.dead = True
-            cash+=5
+            
         if self.y > 795:
             self.dead = True
-            cash+=5
 
         if (self.radius+70 > math.sqrt((px - self.x)**2 + (py - self.y)**2)):
 
@@ -65,11 +64,5 @@ class leaf:
             self.vy = 0
 
     def Dollars(self, cash):
-        if self.x < 5:
-            cash+=5
-        if self.x > 795:
-            cash+=5
-        if self.y < 5:
-            cash+=5
-        if self.y > 795:
-            cash+=5
+        if self.dead == True:
+            cash += 5

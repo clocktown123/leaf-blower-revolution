@@ -40,6 +40,7 @@ mouseDown = False
 
 #other variables
 amount = 30
+hasPaid = False
 
 last_check_time = pygame.time.get_ticks()
 
@@ -111,7 +112,10 @@ while 1:
     p1.move(direct)
 
     for i in range(len(leafBag)):
-        leafBag[i].Dollars(cash)
+        if leafBag[i].dead == True and hasPaid == False:
+            cash += 5
+            hasPaid = False
+            
     
     #states--------------------------------------------------------------------------------------------------
     if state == 1 and mousePos[0]>300 and mousePos[0]<500 and mousePos[1]>300 and mousePos[1]<450:

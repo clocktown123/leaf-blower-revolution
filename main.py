@@ -96,7 +96,7 @@ while 1:
     #physics section----------------------------------------------------------------------------------------
 
     for i in range(len(leafBag)):
-            leafBag[i].collision(mousePos, p1.pos.x, p1.pos.y, cash)
+        leafBag[i].collision(mousePos, p1.pos.x, p1.pos.y, cash)
 
     current_time = pygame.time.get_ticks()
     if current_time - last_check_time >= 15000:  # 15 seconds in milliseconds
@@ -112,10 +112,16 @@ while 1:
     p1.move(direct)
 
     for i in range(len(leafBag)):
-        if leafBag[i].dead == True and hasPaid == False:
+        if leafBag[i].dead == True and leafBag[i].hasPaid == False:
             cash += 5
-            hasPaid = False
+            leafBag[i].hasPaid = True
             
+            
+
+    #print("LIFE: ", leafBag[i].dead)
+    #print("PAID: ", hasPaid)
+
+
     
     #states--------------------------------------------------------------------------------------------------
     if state == 1 and mousePos[0]>300 and mousePos[0]<500 and mousePos[1]>300 and mousePos[1]<450:

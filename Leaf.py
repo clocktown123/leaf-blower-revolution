@@ -14,6 +14,8 @@ class leaf:
         self.radius = 15
         self.dead = False
         self.leaflvl = 1
+        self.hasPaid = False
+        self.cash = 0
 
     def draw(self, screen):
         pygame.draw.circle(screen, BLUE, (self.x, self.y), self.radius)
@@ -22,6 +24,7 @@ class leaf:
         self.dead = False
         self.x = random.randrange(10, 700)
         self.y = random.randrange(10, 700)
+        self.hasPaid = False
 
     def collision(self, mousePos, px, py, cash):
 

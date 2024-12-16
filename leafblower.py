@@ -14,6 +14,9 @@ class player:
         self.vx=0
         self.vy=0
         self.direction = D
+        self.level = 1
+        self.cost = 250
+        self.hasUpg = False
     
     def draw(self, screen):
         pygame.draw.circle(screen, (255,0,255), (self.pos.x, self.pos.y), 50)
